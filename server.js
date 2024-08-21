@@ -119,6 +119,8 @@ import cors from "cors";
 import { Server } from "socket.io";
 
 import http from "http";
+import { sendUnreadMessageReminders } from "./utils/notification.js";
+import schedule from "node-schedule";
 
 const port = process.env.PORT || 5000;
 
@@ -198,4 +200,24 @@ io.on("connection", (socket) => {
     removeUser(socket.id);
     io.emit("getUsers", users);
   });
+});
+
+// const job = schedule.scheduleJob("0 8 * * *", async () => {
+//   // Runs once a day at 8:00 AM
+//   try {
+//     await sendUnreadMessageReminders();
+//     console.log("Sent upcoming task notifications");
+//   } catch (error) {
+//     console.error("Error sending upcoming task notifications:", error);
+//   }
+// });
+
+const job = schedule.scheduleJob("* * * * *", async () => {
+  // Runs every minute
+  try {
+    await sendUnreadMessageReminders();
+    console.log("Sent upcoming task notifications");
+  } catch (error) {
+    console.error("Error sending upcoming task notifications:", error);
+  }
 });

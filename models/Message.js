@@ -6,10 +6,25 @@ const messageSchema = new mongoose.Schema(
       type: String,
     },
     sender: {
-      type: String,
+      // type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
+    recipient: {
+      // Add recipient field here
+      // type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
     text: {
       type: String,
+    },
+    read: {
+      type: Boolean,
+      default: false,
     },
   },
   {

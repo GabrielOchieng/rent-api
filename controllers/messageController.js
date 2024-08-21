@@ -24,4 +24,25 @@ const getMessage = async (req, res) => {
   } catch (error) {}
 };
 
-export { createMessage, getMessage };
+const markMessageAsRead = async (req, res) => {
+  try {
+    const messageId = req.params.messageId;
+    const message = await Message.findById(messageId);
+
+    if (!message) {
+      return res.status(404).json({
+        error: "Message not found",
+      });
+    }
+
+    message.read = true;
+    await message.save();
+
+    res.status(200).json({ message: "Message marked as read" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export { createMessage, getMessage, markMessageAsRead };
