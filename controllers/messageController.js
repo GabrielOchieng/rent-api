@@ -25,23 +25,22 @@ const getMessage = async (req, res) => {
 };
 
 const markMessageAsRead = async (req, res) => {
-  try {
-    const messageId = req.params.messageId;
-    const message = await Message.findById(messageId);
+  const { messageId } = req.params;
 
+  try {
+    const message = await Message.findById(messageId);
     if (!message) {
-      return res.status(404).json({
-        error: "Message not found",
-      });
+      return res.status(404).json({ message: "Message not found" });
     }
 
+    // Update the read property directly
     message.read = true;
     await message.save();
 
     res.status(200).json({ message: "Message marked as read" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ message: "Error marking message as read" });
   }
 };
 

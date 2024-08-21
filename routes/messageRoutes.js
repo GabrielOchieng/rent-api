@@ -16,6 +16,7 @@ router.post("/", createMessage);
 router.get("/:conversationId", getMessage);
 
 // Mark a message as read
-router.put("/:messageId/read", protect, markMessageAsRead);
+// router.put("/:messageId/read", protect, markMessageAsRead);
+router.put("/:messageId/mark-as-read", markMessageAsRead);
 
 export default router;
