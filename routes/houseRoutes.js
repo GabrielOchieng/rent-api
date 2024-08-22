@@ -24,9 +24,9 @@ router.get(
 router.get("/:id", getHouseById);
 
 router.get(
-  "/:userId/products",
+  "/:userId/houses",
   protect,
-  authorize("seller"),
+  // authorize("landlord"),
   getMyListedHouses
 );
 

@@ -29,9 +29,9 @@ const getMyListedHouses = asyncHandler(async (req, res) => {
   }
 
   // 2. Fetch houses based on landlord ID:
-  const houses = await House.find({ landlord: req.user._id });
-
-  res.status(200).json(houses);
+  const myHouses = await House.find({ landlord: req.user._id });
+  console.log(myHouses.length);
+  res.status(200).json(myHouses);
 });
 
 // Create a house (requires authorization - landlord only)
