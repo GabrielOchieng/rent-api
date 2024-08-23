@@ -103,6 +103,10 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 dotenv.config();
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
+import xss from "xss-clean";
 import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 import userRoutes from "./routes/userRoutes.js";
 import houseRoutes from "./routes/houseRoutes.js";
@@ -129,9 +133,30 @@ connectDB();
 const httpServer = http.createServer();
 const app = express();
 app.use(express.json());
+app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
+
+//Rate limiting
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+
+  max: 100, // limit each IP to 100 requests per windowMs
+
+  message: "Too many requests from this IP, please try again later.",
+});
+
+app.use("/users", limiter);
+
+//Data sanitization against No-sql query injection
+
+app.use(mongoSanitize());
+
+//Data sanitization against XSS attacks
+
+app.use(xss());
 
 app.use("/users", userRoutes);
 app.use("/houses", houseRoutes);
