@@ -5,6 +5,7 @@ import User from "../models/userModel.js";
 const protect = async (req, res, next) => {
   // Check for authorization header
   const authHeader = req.headers.authorization;
+  // console.log("AUTH", req.headers.authorization);
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ message: "Unauthorized access" });
   }
@@ -12,12 +13,15 @@ const protect = async (req, res, next) => {
   try {
     // Extract token from header
     const token = authHeader.split(" ")[1];
+    // console.log("TOKEN", token);
 
     // Verify JWT token (replace with your secret key)
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Attach user to the request object for further use
     req.user = await User.findById(decoded._id);
+
+    // console.log("USER: " + req.user);
 
     // User is authorized, continue to the next middleware
     next();
@@ -28,7 +32,7 @@ const protect = async (req, res, next) => {
 
 const authorize = (allowedRoles) => (req, res, next) => {
   const user = req.user; // Assuming user object is attached to request after login
-  console.log(user);
+  console.log(user.role);
   if (allowedRoles.includes(user?.role)) {
     next(); // User has allowed role, proceed
   } else {

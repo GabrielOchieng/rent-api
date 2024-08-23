@@ -14,21 +14,12 @@ import { uploadMultiple } from "../middlewares/uploads/uploadMultiple.js";
 const router = express.Router();
 
 // Get all products (public route)
-router.get(
-  "/",
-  //  protect,
-  getHouses
-);
+router.get("/", protect, getHouses);
 
 // Get a single product by ID (public route)
-router.get("/:id", getHouseById);
+router.get("/:id", protect, getHouseById);
 
-router.get(
-  "/:userId/houses",
-  // protect,
-  // authorize("admin"),
-  getMyListedHouses
-);
+router.get("/:userId/houses", protect, authorize("admin"), getMyListedHouses);
 
 // Create a new product (protected route, accessible only to sellers)
 router.post(

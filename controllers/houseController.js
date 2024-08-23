@@ -4,7 +4,7 @@ import House from "../models/houseModel.js";
 // Get all houses
 const getHouses = asyncHandler(async (req, res) => {
   const houses = await House.find();
-  console.log(houses);
+  // console.log(houses);
   res.status(200).json(houses);
 });
 
