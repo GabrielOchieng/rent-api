@@ -16,7 +16,7 @@ const router = express.Router();
 // Get all products (public route)
 router.get(
   "/",
-  // protect,
+  //  protect,
   getHouses
 );
 
@@ -25,8 +25,8 @@ router.get("/:id", getHouseById);
 
 router.get(
   "/:userId/houses",
-  protect,
-  // authorize("landlord"),
+  // protect,
+  // authorize("admin"),
   getMyListedHouses
 );
 

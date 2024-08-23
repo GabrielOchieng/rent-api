@@ -4,6 +4,7 @@ import House from "../models/houseModel.js";
 // Get all houses
 const getHouses = asyncHandler(async (req, res) => {
   const houses = await House.find();
+  console.log(houses);
   res.status(200).json(houses);
 });
 
@@ -20,20 +21,29 @@ const getHouseById = asyncHandler(async (req, res) => {
   res.status(200).json(house);
 });
 
-const getMyListedHouses = asyncHandler(async (req, res) => {
-  // 1. Check user authorization (assuming middleware is already implemented):
-  if (!req.user) {
-    return res
-      .status(401)
-      .json({ message: "Unauthorized to access listed houses" });
-  }
+// const getMyListedHouses = asyncHandler(async (req, res) => {
+//   // 1. Check user authorization (assuming middleware is already implemented):
+//   if (!req.user) {
+//     return res
+//       .status(401)
+//       .json({ message: "Unauthorized to access listed houses" });
+//   }
 
-  // 2. Fetch houses based on landlord ID:
-  const myHouses = await House.find({ landlord: req.user._id });
-  console.log(myHouses.length);
+//   // 2. Fetch houses based on landlord ID:
+//   const myHouses = await House.find({ landlord: req.user._id });
+//   console.log(myHouses.length);
+//   res.status(200).json(myHouses);
+// });
+
+// Get user tasks
+const getMyListedHouses = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+  console.log(req.user);
+
+  const myHouses = await House.find({ landlord: userId }).populate("landlord"); // Optional: populate assignedTo user
+
   res.status(200).json(myHouses);
 });
-
 // Create a house (requires authorization - landlord only)
 // const createHouse = asyncHandler(async (req, res) => {
 //   const { title, description, price, location, category, images } = req.body;

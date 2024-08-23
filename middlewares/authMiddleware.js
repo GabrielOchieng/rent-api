@@ -28,7 +28,8 @@ const protect = async (req, res, next) => {
 
 const authorize = (allowedRoles) => (req, res, next) => {
   const user = req.user; // Assuming user object is attached to request after login
-  if (allowedRoles.includes(user.role)) {
+  console.log(user);
+  if (allowedRoles.includes(user?.role)) {
     next(); // User has allowed role, proceed
   } else {
     res.status(403).json({ message: "Unauthorized access" }); // User doesn't have permission

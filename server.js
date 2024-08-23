@@ -148,15 +148,15 @@ const limiter = rateLimit({
   message: "Too many requests from this IP, please try again later.",
 });
 
-app.use("/users", limiter);
+// app.use("/users", limiter);
 
 //Data sanitization against No-sql query injection
 
-app.use(mongoSanitize());
+// app.use(mongoSanitize());
 
 //Data sanitization against XSS attacks
 
-app.use(xss());
+// app.use(xss());
 
 app.use("/users", userRoutes);
 app.use("/houses", houseRoutes);
