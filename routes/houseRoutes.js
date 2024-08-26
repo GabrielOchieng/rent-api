@@ -27,7 +27,12 @@ router.get(
   getHouseById
 );
 
-router.get("/:userId/houses", protect, authorize("admin"), getMyListedHouses);
+router.get(
+  "/:userId/houses",
+  protect,
+  //  authorize("admin"),
+  getMyListedHouses
+);
 
 // Create a new product (protected route, accessible only to sellers)
 router.post(
@@ -43,6 +48,6 @@ router.post(
 router.put("/:id", protect, authorize("seller"), updateHouse);
 
 // Delete a product (protected route, accessible only to seller who created the product)
-router.delete("/:id", protect, authorize("seller"), deleteHouse);
+router.delete("/:id", protect, authorize("landlord"), deleteHouse);
 
 export default router;
