@@ -48,6 +48,11 @@ router.post(
 router.put("/:id", protect, authorize("seller"), updateHouse);
 
 // Delete a product (protected route, accessible only to seller who created the product)
-router.delete("/:id", protect, authorize("landlord"), deleteHouse);
+router.delete(
+  "/:id",
+  protect,
+  //  authorize("landlord"),
+  deleteHouse
+);
 
 export default router;
