@@ -246,3 +246,7 @@ const job = schedule.scheduleJob("* * * * *", async () => {
     console.error("Error sending upcoming task notifications:", error);
   }
 });
+
+console.log(app);
+
+export { app, server }; // Export both app and server if needed
