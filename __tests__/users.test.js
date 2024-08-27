@@ -5,12 +5,17 @@ import dotenv from "dotenv";
 import connectDB from "../config/db";
 dotenv.config();
 
+let dbConnection;
+
 beforeEach(async () => {
-  connectDB();
+  dbConnection = await connectDB();
 });
 
 afterEach(async () => {
-  await mongoose.connection.close();
+  if (dbConnection) {
+    await mongoose.disconnect();
+    dbConnection = null;
+  }
 });
 
 describe("Get /houses", () => {
