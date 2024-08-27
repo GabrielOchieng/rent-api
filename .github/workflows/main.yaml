@@ -42,7 +42,7 @@
 #           service-id: ${{secrets.SERVICE_ID}}
 #           api-key: ${{secrets.RENDER_API_KEY}}
 
-name: NODE.JS CI/CD
+name: Node.js CI/CD
 
 on:
   push:
