@@ -11,21 +11,27 @@ beforeEach(async () => {
   dbConnection = await connectDB();
 });
 
-afterEach(async () => {
+afterAll(async () => {
   if (dbConnection) {
     await mongoose.disconnect();
-    dbConnection = null;
   }
-});
 
-// Properly close the server
-// if (server && server.close) {
-//   server.close((err) => {
-//     if (err) {
-//       console.error("Error closing the server:", err);
-//     }
-//   });
-// }
+  if (server && server.close) {
+    await new Promise((resolve, reject) => {
+      server.close((err) => {
+        if (err) {
+          console.error("Error closing the server:", err);
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+  // Optional: Add a timeout to ensure all cleanup is complete
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+});
 
 describe("Get /houses", () => {
   it("should return all houses", async () => {
