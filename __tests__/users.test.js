@@ -11,28 +11,6 @@ beforeEach(async () => {
   dbConnection = await connectDB();
 });
 
-afterAll(async () => {
-  if (dbConnection) {
-    await mongoose.disconnect();
-  }
-
-  // if (server && server.close) {
-  //   await new Promise((resolve, reject) => {
-  //     server.close((err) => {
-  //       if (err) {
-  //         console.error("Error closing the server:", err);
-  //         reject(err);
-  //       } else {
-  //         resolve();
-  //       }
-  //     });
-  //   });
-  // }
-
-  // Optional: Add a timeout to ensure all cleanup is complete
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-});
-
 describe("Get /houses", () => {
   it("should return all houses", async () => {
     const response = await request(app).get("/houses");

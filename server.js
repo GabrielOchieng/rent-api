@@ -136,14 +136,20 @@ io.on("connection", (socket) => {
 //   }
 // });
 
-const job = schedule.scheduleJob("* * * * *", async () => {
-  // Runs every minute
-  try {
-    await sendUnreadMessageReminders();
-    // console.log("Sent upcoming task notifications");
-  } catch (error) {
-    // console.error("Error sending upcoming task notifications:", error);
-  }
+// const job = schedule.scheduleJob("* * * * *", async () => {
+//   // Runs every minute
+//   try {
+//     await sendUnreadMessageReminders();
+//     // console.log("Sent upcoming task notifications");
+//   } catch (error) {
+//     // console.error("Error sending upcoming task notifications:", error);
+//   }
+// });
+
+afterAll(() => {
+  // Add this block after your existing code
+  server.close(() => console.log("Server closed"));
+  // Close Socket.IO server if applicable: io.close();
 });
 
 export { app, server }; // Export both app and server if needed
