@@ -1,3 +1,47 @@
+# name: NODE.JS CI/CD
+
+# on:
+#   push:
+#     branches: [main]
+
+# jobs:
+#   test:
+#     name: Test
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         node-version: [20.x, 21.x]
+#         # node-version: [20.x, 21.x, 22.x]
+
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+
+#       - name: Use Node.JS ${{ matrix.node-version }}
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: ${{ matrix.node-version }}
+
+#       - name: NPM install and test
+#         run: |
+#           npm install
+#           npm run test
+
+#   deploy:
+#     name: Deploy
+#     needs: [test]
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Deploy to production
+#         uses: johnbeynon/render-deploy-action@v0.0.8
+#         with:
+#           service-id: ${{secrets.SERVICE_ID}}
+#           api-key: ${{secrets.RENDER_API_KEY}}
+
 name: NODE.JS CI/CD
 
 on:
@@ -12,13 +56,20 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x, 21.x]
-        # node-version: [20.x, 21.x, 22.x]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: Cache Node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Use Node.JS ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -39,5 +90,5 @@ jobs:
       - name: Deploy to production
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
-          service-id: ${{secrets.SERVICE_ID}}
-          api-key: ${{secrets.RENDER_API_KEY}}
+          service-id: ${{ secrets.SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
