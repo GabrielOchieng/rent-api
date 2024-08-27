@@ -148,7 +148,7 @@ io.on("connection", (socket) => {
 
 afterAll(() => {
   // Add this block after your existing code
-  server.close(() => console.log("Server closed"));
+  server.close();
   // Close Socket.IO server if applicable: io.close();
 });
 
