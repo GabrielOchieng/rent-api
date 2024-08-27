@@ -247,6 +247,4 @@ const job = schedule.scheduleJob("* * * * *", async () => {
   }
 });
 
-console.log(app);
-
 export { app, server }; // Export both app and server if needed
