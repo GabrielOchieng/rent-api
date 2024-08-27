@@ -79,7 +79,15 @@ jobs:
       - name: NPM install and test
         run: |
           npm install
-          npm run test
+          npm run
+          npm test
+        env:
+          MONGO_URI: ${{secrets.MONGO_URI}}
+          JWT_SECRET: ${{secrets.JWT_SECRET}}
+          APP_CLOUDINARY_CLOUD_NAME: ${{secrets.APP_CLOUDINARY_CLOUD_NAME}}
+          APP_CLOUDINARY_API_KEY: ${{secrets.APP_CLOUDINARY_API_KEY}}
+          APP_CLOUDINARY_SECRET_KEY: ${{secrets.APP_CLOUDINARY_SECRET_KEY}}
+          MAIL_PASSWORD: ${{secrets.MAIL_PASSWORD}}
 
   deploy:
     name: Deploy
