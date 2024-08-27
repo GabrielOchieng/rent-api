@@ -19,13 +19,13 @@ afterEach(async () => {
 });
 
 // Properly close the server
-if (server && server.close) {
-  server.close((err) => {
-    if (err) {
-      console.error("Error closing the server:", err);
-    }
-  });
-}
+// if (server && server.close) {
+//   server.close((err) => {
+//     if (err) {
+//       console.error("Error closing the server:", err);
+//     }
+//   });
+// }
 
 describe("Get /houses", () => {
   it("should return all houses", async () => {
