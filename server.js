@@ -237,14 +237,14 @@ io.on("connection", (socket) => {
 //   }
 // });
 
-const job = schedule.scheduleJob("* * * * *", async () => {
-  // Runs every minute
-  try {
-    await sendUnreadMessageReminders();
-    // console.log("Sent upcoming task notifications");
-  } catch (error) {
-    // console.error("Error sending upcoming task notifications:", error);
-  }
-});
+// const job = schedule.scheduleJob("* * * * *", async () => {
+//   // Runs every minute
+//   try {
+//     await sendUnreadMessageReminders();
+//     // console.log("Sent upcoming task notifications");
+//   } catch (error) {
+//     // console.error("Error sending upcoming task notifications:", error);
+//   }
+// });
 
 export { app, server }; // Export both app and server if needed
