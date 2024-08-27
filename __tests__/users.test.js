@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import request from "supertest";
-import { app } from "../server.js";
+import { app, server } from "../server.js";
 import dotenv from "dotenv";
 import connectDB from "../config/db";
 dotenv.config();
@@ -17,6 +17,11 @@ afterEach(async () => {
     dbConnection = null;
   }
 });
+
+// Close the server
+if (server && server.close) {
+  server.close();
+}
 
 describe("Get /houses", () => {
   it("should return all houses", async () => {
