@@ -76,10 +76,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: NPM install
+      - name: NPM install and test
         run: |
           npm install
-
+          npm test
         env:
           MONGO_URI: ${{secrets.MONGO_URI}}
           JWT_SECRET: ${{secrets.JWT_SECRET}}
@@ -90,7 +90,7 @@ jobs:
 
   deploy:
     name: Deploy
-    # needs: [test]
+    needs: [test]
     runs-on: ubuntu-latest
 
     steps:
