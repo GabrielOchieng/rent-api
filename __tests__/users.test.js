@@ -16,18 +16,18 @@ afterAll(async () => {
     await mongoose.disconnect();
   }
 
-  if (server && server.close) {
-    await new Promise((resolve, reject) => {
-      server.close((err) => {
-        if (err) {
-          console.error("Error closing the server:", err);
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
-  }
+  // if (server && server.close) {
+  //   await new Promise((resolve, reject) => {
+  //     server.close((err) => {
+  //       if (err) {
+  //         console.error("Error closing the server:", err);
+  //         reject(err);
+  //       } else {
+  //         resolve();
+  //       }
+  //     });
+  //   });
+  // }
 
   // Optional: Add a timeout to ensure all cleanup is complete
   await new Promise((resolve) => setTimeout(resolve, 1000));
