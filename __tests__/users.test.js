@@ -18,9 +18,13 @@ afterEach(async () => {
   }
 });
 
-// Close the server
+// Properly close the server
 if (server && server.close) {
-  server.close();
+  server.close((err) => {
+    if (err) {
+      console.error("Error closing the server:", err);
+    }
+  });
 }
 
 describe("Get /houses", () => {
