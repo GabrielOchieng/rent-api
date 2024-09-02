@@ -39,15 +39,15 @@ app.use(cookieParser());
 
 //Rate limiting
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 minutes
 
-  max: 100, // limit each IP to 100 requests per windowMs
+//   max: 100, // limit each IP to 100 requests per windowMs
 
-  message: "Too many requests from this IP, please try again later.",
-});
+//   message: "Too many requests from this IP, please try again later.",
+// });
 
-app.use("/users", limiter);
+// app.use("/users", limiter);
 
 //Data sanitization against No-sql query injection
 
@@ -136,20 +136,14 @@ io.on("connection", (socket) => {
 //   }
 // });
 
-// const job = schedule.scheduleJob("* * * * *", async () => {
-//   // Runs every minute
-//   try {
-//     await sendUnreadMessageReminders();
-//     // console.log("Sent upcoming task notifications");
-//   } catch (error) {
-//     // console.error("Error sending upcoming task notifications:", error);
-//   }
-// });
-
-afterAll(() => {
-  // Add this block after your existing code
-  server.close();
-  // Close Socket.IO server if applicable: io.close();
+const job = schedule.scheduleJob("* * * * *", async () => {
+  // Runs every minute
+  try {
+    await sendUnreadMessageReminders();
+    // console.log("Sent upcoming task notifications");
+  } catch (error) {
+    // console.error("Error sending upcoming task notifications:", error);
+  }
 });
 
 export { app, server }; // Export both app and server if needed

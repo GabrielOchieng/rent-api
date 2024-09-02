@@ -1,14 +1,16 @@
 import mongoose from "mongoose";
 import request from "supertest";
-import { app, server } from "../server.js";
+import { app } from "../server.js";
 import dotenv from "dotenv";
 import connectDB from "../config/db";
 dotenv.config();
 
-let dbConnection;
-
 beforeEach(async () => {
-  dbConnection = await connectDB();
+  connectDB();
+});
+
+afterEach(async () => {
+  await mongoose.connection.close();
 });
 
 describe("Get /houses", () => {

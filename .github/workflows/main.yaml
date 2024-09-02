@@ -42,60 +42,62 @@
 #           service-id: ${{secrets.SERVICE_ID}}
 #           api-key: ${{secrets.RENDER_API_KEY}}
 
-name: Node.js CI/CD
+# CORRECTED
 
-on:
-  push:
-    branches: [main]
+# name: Node.js CI/CD
 
-jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
+# on:
+#   push:
+#     branches: [main]
 
-    strategy:
-      matrix:
-        node-version: [20.x, 21.x]
+# jobs:
+#   test:
+#     name: Test
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+#     strategy:
+#       matrix:
+#         node-version: [20.x, 21.x]
 
-      - name: Cache Node modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
 
-      - name: Use Node.JS ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
+#       - name: Cache Node modules
+#         uses: actions/cache@v3
+#         with:
+#           path: ~/.npm
+#           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+#           restore-keys: |
+#             ${{ runner.os }}-node-
 
-      - name: NPM install and test
-        run: |
-          npm install
-          npm test
-        env:
-          MONGO_URI: ${{secrets.MONGO_URI}}
-          JWT_SECRET: ${{secrets.JWT_SECRET}}
-          APP_CLOUDINARY_CLOUD_NAME: ${{secrets.APP_CLOUDINARY_CLOUD_NAME}}
-          APP_CLOUDINARY_API_KEY: ${{secrets.APP_CLOUDINARY_API_KEY}}
-          APP_CLOUDINARY_SECRET_KEY: ${{secrets.APP_CLOUDINARY_SECRET_KEY}}
-          MAIL_PASSWORD: ${{secrets.MAIL_PASSWORD}}
+#       - name: Use Node.JS ${{ matrix.node-version }}
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: ${{ matrix.node-version }}
 
-  deploy:
-    name: Deploy
-    needs: [test]
-    runs-on: ubuntu-latest
+#       - name: NPM install and test
+#         run: |
+#           npm install
+#           npm test
+#         env:
+#           MONGO_URI: ${{secrets.MONGO_URI}}
+#           JWT_SECRET: ${{secrets.JWT_SECRET}}
+#           APP_CLOUDINARY_CLOUD_NAME: ${{secrets.APP_CLOUDINARY_CLOUD_NAME}}
+#           APP_CLOUDINARY_API_KEY: ${{secrets.APP_CLOUDINARY_API_KEY}}
+#           APP_CLOUDINARY_SECRET_KEY: ${{secrets.APP_CLOUDINARY_SECRET_KEY}}
+#           MAIL_PASSWORD: ${{secrets.MAIL_PASSWORD}}
 
-    steps:
-      - name: Deploy to production
-        uses: johnbeynon/render-deploy-action@v0.0.8
-        with:
-          service-id: ${{ secrets.SERVICE_ID }}
-          api-key: ${{ secrets.RENDER_API_KEY }}
+#   deploy:
+#     name: Deploy
+#     needs: [test]
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Deploy to production
+#         uses: johnbeynon/render-deploy-action@v0.0.8
+#         with:
+#           service-id: ${{ secrets.SERVICE_ID }}
+#           api-key: ${{ secrets.RENDER_API_KEY }}
