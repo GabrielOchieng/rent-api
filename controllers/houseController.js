@@ -135,7 +135,8 @@ const createHouse = asyncHandler(async (req, res) => {
 
 // Update a house (requires authorization - landlord only)
 const updateHouse = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.body;
+  console.log(id);
   const {
     street,
     town,
@@ -175,8 +176,8 @@ const updateHouse = asyncHandler(async (req, res) => {
   if (!house) {
     res.status(404).json({ message: "House not found" });
   }
-
-  res.status(200).json(house);
+  console.log(house);
+  res.status(200).json({ message: "House updated successfully", house });
 });
 
 // Delete a house (requires authorization - landlord only)

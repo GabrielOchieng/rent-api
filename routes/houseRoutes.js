@@ -48,7 +48,7 @@ router.post(
 router.put(
   "/:id",
   protect,
-  // authorize("seller"),
+  // authorize("landlord"),
   upload.array("images"),
   uploadMultiple,
 
