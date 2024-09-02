@@ -31,7 +31,7 @@ export const sendUnreadMessageReminders = async () => {
       const emailContent = `
           <h3>Unread Message Reminder:</h3>
           <p>You have an unread message from ${senderName}.</p>
-          <a href="http://localhost:5173">Login on the website to view the message</a>
+          <a href="https://renteasy-zhop.onrender.com">Login on the website to view the message</a>
         `;
 
       await transporter.sendMail({
