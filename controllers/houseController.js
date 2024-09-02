@@ -168,7 +168,7 @@ const updateHouse = asyncHandler(async (req, res) => {
       description,
       amenities,
       contactInfo,
-      images,
+      images: req.images,
     },
     { new: true } // Return the updated house
   );
