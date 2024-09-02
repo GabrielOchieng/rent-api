@@ -45,7 +45,15 @@ router.post(
 );
 
 // Update a product (protected route, accessible only to seller who created the product)
-router.put("/:id", protect, authorize("seller"), updateHouse);
+router.put(
+  "/:id",
+  protect,
+  // authorize("seller"),
+  upload.array("images"),
+  uploadMultiple,
+
+  updateHouse
+);
 
 // Delete a product (protected route, accessible only to seller who created the product)
 router.delete(
